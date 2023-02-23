@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+    <script
+      async
+      src="https://cdn.jsdelivr.net/npm/es-module-shims@1.6.2/dist/es-module-shims.min.js"
+    ></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.module.js",
+          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/",
+          "./setup": "./setup.js",
+          "three-move-controller": "../dist/esm/index.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+      import { setupScene } from "./setup";
+      import { MoveController } from "three-move-controller";
+
+      function createWorldObjects(scene) {
+        const container = new THREE.Object3D();
+        scene.add(container);
+
+        const planet = new THREE.Mesh(
+          new THREE.BoxGeometry(1, 1, 1),
+          new THREE.MeshNormalMaterial()
+        );
+        planet.name = "planet";
+        planet.position.set(0.0, 1, -5);
+        container.add(planet);
+
+        const satellite = new THREE.Mesh(
+          new THREE.SphereGeometry(0.2),
+          new THREE.MeshStandardMaterial({ color: 0x6699ff, roughness: 0.5 })
+        );
+        satellite.name = "satellite";
+        scene.add(satellite);
+
+        const tmpVec = new THREE.Vector3();
+        const tmpVec1 = new THREE.Vector3();
+        const tmpQuat = new THREE.Quaternion();
+
+        function animate() {
+          const rad = 0.01;
+          const forward = tmpVec.set(0, 0, 1);
+          const targetPos = planet.getWorldPosition(tmpVec1);
+          const targetQuat = planet.getWorldQuaternion(tmpQuat);
+          const sin = Math.sin(rad);
+          const cos = Math.cos(rad);
+          forward.set(
+            forward.x * cos - forward.z * sin,
+            0,
+            forward.x * sin + forward.z * cos
+          );
+
+          satellite.position
+            .copy(targetPos)
+            .add(forward.applyQuaternion(targetQuat).multiplyScalar(1));
+          planet.lookAt(satellite.position);
+
+          requestAnimationFrame(animate);
+        }
+        animate();
+      }
+      const main = () => {
+        let ctx;
+        ctx = setupScene((dt) => {
+          moveController?.tick(dt);
+        });
+        ctx.cameraContainer.position.set(0, 1.6, 0);
+        const person = new THREE.Object3D();
+        person.name = "person";
+        person.add(ctx.cameraContainer);
+        person.position.z = 2;
+        ctx.scene.add(person);
+
+        createWorldObjects(ctx.scene);
+
+        const moveController = new MoveController(
+          person,
+          person,
+          ctx.cameraContainer,
+          {
+            minVerticalRotation: 0.65,
+            maxVerticalRotation: 2.2,
+          }
+        );
+      };
+      main();
+    </script>
+  </head>
+  <body></body>
+</html>
