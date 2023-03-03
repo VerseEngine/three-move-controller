@@ -8,5 +8,5 @@
 
 |  Package | Description |
 |  --- | --- |
-|  [three-move-controller](./three-move-controller.md) | Movement and rotation by keyboard and mouse |
+|  [@verseengine/three-move-controller](./three-move-controller.md) | Movement and rotation by keyboard and mouse |
 
