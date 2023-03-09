@@ -77,6 +77,14 @@ export class MoveController {
    * When set to false, Will not respond to vertical rotation controls. Default is true.
    */
   verticalRotationEnabled = true;
+  /**
+   * Movement speed. Default is 2.
+   */
+  moveSpeed: number;
+  /**
+   * Rotation speed. Default is 1
+   */
+  rotationSpeed: number;
   private _isMove = false;
   private _isRotation = false;
   private _moveDirection: THREE.Vector3;
@@ -84,8 +92,6 @@ export class MoveController {
   private _rotationStartY = 0;
   private _rotationAxis: THREE.Vector3;
   private _enabled = true;
-  private _moveSpeed: number;
-  private _rotationSpeed: number;
   private _minVerticalRotation?: number;
   private _maxVerticalRotation?: number;
   private _intervalSec = 0;
@@ -130,8 +136,8 @@ export class MoveController {
     this._onMouseCancel = this._onMouseCancel.bind(this);
     this._onMouseEnd = this._onMouseEnd.bind(this);
 
-    this._moveSpeed = options?.moveSpeed || DEFAULT_MOVE_SPEED;
-    this._rotationSpeed = options?.rotationSpeed || DEFAULT_ROTATE_SPEED;
+    this.moveSpeed = options?.moveSpeed || DEFAULT_MOVE_SPEED;
+    this.rotationSpeed = options?.rotationSpeed || DEFAULT_ROTATE_SPEED;
     this._minVerticalRotation = options?.minVerticalRotation;
     this._maxVerticalRotation = options?.maxVerticalRotation;
     this._intervalSec =
@@ -227,8 +233,8 @@ export class MoveController {
     const dt = this._sec;
     this._sec = 0;
 
-    const moveSpeed = this._moveSpeed;
-    const rotationSpeed = this._rotationSpeed;
+    const moveSpeed = this.moveSpeed;
+    const rotationSpeed = this.rotationSpeed;
 
     if (this._isRotation && this.rotationEnabled) {
       if (this._rotationAxis.x !== 0) {

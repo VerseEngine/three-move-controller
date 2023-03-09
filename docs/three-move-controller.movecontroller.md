@@ -25,8 +25,10 @@ export declare class MoveController
 |  [enabled](./three-move-controller.movecontroller.enabled.md) |  | boolean | When set to false, Will not respond to all controls. Default is true. |
 |  [horizontalRotationTarget](./three-move-controller.movecontroller.horizontalrotationtarget.md) |  | THREE.Object3D | Objects to be rotated horizontally |
 |  [moveEnabled](./three-move-controller.movecontroller.moveenabled.md) |  | boolean | When set to false, Will not respond to movement controls. Default is true. |
+|  [moveSpeed](./three-move-controller.movecontroller.movespeed.md) |  | number | Movement speed. Default is 2. |
 |  [moveTarget](./three-move-controller.movecontroller.movetarget.md) |  | THREE.Object3D | Object to move |
 |  [rotationEnabled](./three-move-controller.movecontroller.rotationenabled.md) |  | boolean | When set to false, Will not respond to rotation controls. Default is true. |
+|  [rotationSpeed](./three-move-controller.movecontroller.rotationspeed.md) |  | number | Rotation speed. Default is 1 |
 |  [verticalRotationEnabled](./three-move-controller.movecontroller.verticalrotationenabled.md) |  | boolean | When set to false, Will not respond to vertical rotation controls. Default is true. |
 |  [verticalRotationTarget?](./three-move-controller.movecontroller.verticalrotationtarget.md) |  | THREE.Object3D | _(Optional)_ Objects to be rotated vertically |
 
