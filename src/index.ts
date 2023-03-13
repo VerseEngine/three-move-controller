@@ -47,6 +47,10 @@ export interface MoveControllerOptions {
    * Processing frequency of tick(). Default is 1 / 60 (60fps).
    */
   intervalSec?: number;
+  /**
+   * Custom move function.
+   */
+  moveTo?: (x: number, y: number, z: number) => void;
 }
 
 /**
@@ -96,6 +100,7 @@ export class MoveController {
   private _maxVerticalRotation?: number;
   private _intervalSec = 0;
   private _sec = 0;
+  private _moveTo?: (x: number, y: number, z: number) => void;
 
   /**
    * @param moveTarget - Object to move
@@ -144,6 +149,7 @@ export class MoveController {
       options?.intervalSec || options?.intervalSec === 0
         ? options.intervalSec
         : DEFAULT_INTERVAL_SEC;
+    this._moveTo = options?.moveTo;
 
     if (this._enabled) {
       this._start();
@@ -290,9 +296,16 @@ export class MoveController {
       targetQuat.z = 0;
       direction.applyQuaternion(targetQuat);
       const power = 1.0;
-      this.moveTarget.position.x += moveSpeed * direction.x * dt * power;
-      // this.moveTarget.position.y += moveSpeed * direction.y * dt * power;
-      this.moveTarget.position.z += moveSpeed * direction.z * dt * power;
+      const x =
+        this.moveTarget.position.x + moveSpeed * direction.x * dt * power;
+      const y = this.moveTarget.position.y;
+      const z =
+        this.moveTarget.position.z + moveSpeed * direction.z * dt * power;
+      if (this._moveTo) {
+        this._moveTo(x, y, z);
+      } else {
+        this.moveTarget.position.set(x, y, z);
+      }
     }
   }
   private _onKeyDown(e: KeyboardEvent) {

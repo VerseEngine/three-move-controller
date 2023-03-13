@@ -18,5 +18,6 @@ export interface MoveControllerOptions
 |  [maxVerticalRotation?](./three-move-controller.movecontrolleroptions.maxverticalrotation.md) |  | number | _(Optional)_ Maximum radian angle of vertical rotation. Default is undefined (unlimited). |
 |  [minVerticalRotation?](./three-move-controller.movecontrolleroptions.minverticalrotation.md) |  | number | _(Optional)_ Minimum radian angle of vertical rotation. Default is undefined (unlimited). |
 |  [moveSpeed?](./three-move-controller.movecontrolleroptions.movespeed.md) |  | number | _(Optional)_ Movement speed. Default is 2. |
+|  [moveTo?](./three-move-controller.movecontrolleroptions.moveto.md) |  | (x: number, y: number, z: number) =&gt; void | _(Optional)_ Custom move function. |
 |  [rotationSpeed?](./three-move-controller.movecontrolleroptions.rotationspeed.md) |  | number | _(Optional)_ Rotation speed. Default is 1 |
 
