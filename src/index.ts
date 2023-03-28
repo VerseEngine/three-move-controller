@@ -309,6 +309,9 @@ export class MoveController {
     }
   }
   private _onKeyDown(e: KeyboardEvent) {
+    if (["INPUT", "TEXTAREA"].includes((e.target as HTMLElement).tagName)) {
+      return;
+    }
     // e.preventDefault();
     switch (e.code) {
       case "ArrowUp":
