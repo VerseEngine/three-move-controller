@@ -34,7 +34,7 @@ npm install @verseengine/three-move-controller
   {
     "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.module.js",
-      "three-move-controller": "https://cdn.jsdelivr.net/npm/@verseengine/three-move-controller@1.0.0/dist/esm/index.js"
+      "three-move-controller": "https://cdn.jsdelivr.net/npm/@verseengine/three-move-controller@1.0.1/dist/esm/index.js"
     }
   }
 </script>
