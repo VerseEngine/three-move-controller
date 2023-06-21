@@ -18,6 +18,28 @@ Movement and rotation by keyboard and mouse
 npm run example
 ```
 
+## Installation
+### npm
+```bash
+npm install @verseengine/three-move-controller
+```
+
+### CDN (ES Mobules)
+```html
+<script
+      async
+      src="https://cdn.jsdelivr.net/npm/es-module-shims@1.6.2/dist/es-module-shims.min.js"
+    ></script>
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.137.0/build/three.module.js",
+      "three-move-controller": "https://cdn.jsdelivr.net/npm/@verseengine/three-move-controller@1.0.0/dist/esm/index.js"
+    }
+  }
+</script>
+```
+
 ## Usage
 ```javascript
 import * as THREE from "three";
