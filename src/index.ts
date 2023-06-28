@@ -316,27 +316,53 @@ export class MoveController {
     switch (e.code) {
       case "ArrowUp":
       case "KeyW":
-        this._moveDirection.set(0, 0, -1);
+        this._moveDirection.z = -1;
         break;
       case "ArrowDown":
       case "KeyS":
-        this._moveDirection.set(0, 0, 1);
+        this._moveDirection.z = 1;
         break;
       case "ArrowLeft":
       case "KeyA":
-        this._moveDirection.set(-1, 0, 0);
+        this._moveDirection.x = -1;
         break;
       case "ArrowRight":
       case "KeyD":
-        this._moveDirection.set(1, 0, 0);
+        this._moveDirection.x = 1;
+        break;
+      case "KeyQ":
+        this._rotationAxis.x = -1;
+        break;
+      case "KeyE":
+        this._rotationAxis.x = 1;
         break;
       default:
         return;
     }
-    this._isMove = true;
+    this._calcFlags();
   }
-  private _onKeyUp(_e: KeyboardEvent) {
-    this._clear();
+  private _onKeyUp(e: KeyboardEvent) {
+    switch (e.code) {
+      case "ArrowUp":
+      case "KeyW":
+      case "ArrowDown":
+      case "KeyS":
+        this._moveDirection.z = 0;
+        break;
+      case "ArrowLeft":
+      case "KeyA":
+      case "ArrowRight":
+      case "KeyD":
+        this._moveDirection.x = 0;
+        break;
+      case "KeyQ":
+      case "KeyE":
+        this._rotationAxis.x = 0;
+        break;
+      default:
+        return;
+    }
+    this._calcFlags();
   }
   private _onMouseStart(e: MouseEvent) {
     if ((e.target as HTMLElement).tagName !== "CANVAS") {
@@ -380,15 +406,17 @@ export class MoveController {
     }
   }
   private _onMouseEnd(_e: Event) {
-    this._clear();
+    this._clearRotation();
   }
   private _onMouseCancel(_e: Event) {
-    this._clear();
+    this._clearRotation();
   }
-  private _clear() {
-    this._isMove = false;
+  private _clearRotation() {
     this._isRotation = false;
-    this._moveDirection.set(0, 0, 0);
     this._rotationAxis.set(0, 0, 0);
+  }
+  private _calcFlags() {
+    this._isMove = this._moveDirection.z !== 0 || this._moveDirection.x !== 0;
+    this._isRotation = this._rotationAxis.x !== 0 || this._rotationAxis.y !== 0;
   }
 }
