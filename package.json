@@ -1,6 +1,6 @@
 {
   "name": "@verseengine/three-move-controller",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Movement and rotation by keyboard and mouse",
   "author": "Appland, Inc",
   "license": "MIT",
